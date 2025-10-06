@@ -1,5 +1,5 @@
-# ?? Script de Execução Automática - SetPar Store
-# Execute este script para iniciar o projeto automaticamente
+# ?? Script de Execução com Abertura Automática do Navegador - SetPar Store
+# Execute este script para iniciar o projeto e abrir automaticamente no navegador
 
 Write-Host "?? Iniciando SetPar Store..." -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
@@ -124,7 +124,7 @@ try {
 Write-Host "??? Verificando conexão com banco de dados..." -ForegroundColor Yellow
 try {
     # Tentar conectar ao SQL Server
-    $connectionString = "Server=localhost,1433;Database=AdventureWorksLT2022;User Id=sa;Password=SetParJ2;TrustServerCertificate=True;Connection Timeout=5;"
+    $connectionString = "Server=localhost,1433;Database=AdventureWorksLT2022;User Id=sa;Password=SetParJ2!;TrustServerCertificate=True;Connection Timeout=5;"
     $connection = New-Object System.Data.SqlClient.SqlConnection($connectionString)
     $connection.Open()
     $connection.Close()
@@ -144,27 +144,28 @@ Write-Host "   API: http://localhost:5000/api/Products" -ForegroundColor White
 Write-Host "   Swagger: https://localhost:5001/swagger" -ForegroundColor White
 Write-Host ""
 
-# Função para abrir o navegador após um delay
-function Start-BrowserWithDelay {
-    param([string]$Url, [int]$DelaySeconds = 3)
+# Função para abrir o navegador
+function Open-Browser {
+    param([string]$Url)
     
-    Start-Job -ScriptBlock {
-        param($Url, $Delay)
-        Start-Sleep -Seconds $Delay
-        try {
-            Start-Process $Url
-            Write-Host "?? Navegador aberto automaticamente!" -ForegroundColor Green
-        } catch {
-            Write-Host "?? Não foi possível abrir o navegador automaticamente." -ForegroundColor Yellow
-            Write-Host "?? Acesse manualmente: $Url" -ForegroundColor Yellow
-        }
-    } -ArgumentList $Url, $DelaySeconds
+    try {
+        Write-Host "?? Abrindo navegador..." -ForegroundColor Cyan
+        Start-Process $Url
+        Write-Host "? Navegador aberto com sucesso!" -ForegroundColor Green
+    } catch {
+        Write-Host "??  Não foi possível abrir o navegador automaticamente." -ForegroundColor Yellow
+        Write-Host "?? Acesse manualmente: $Url" -ForegroundColor Yellow
+    }
 }
 
-# Iniciar processo em background para abrir o navegador
-Write-Host "?? Abrindo navegador automaticamente em 3 segundos..." -ForegroundColor Cyan
-Start-BrowserWithDelay -Url "http://localhost:5000" -DelaySeconds 3
+# Abrir navegador após um delay
+Write-Host "? Aguardando servidor iniciar..." -ForegroundColor Yellow
+Start-Sleep -Seconds 5
 
+# Abrir o frontend no navegador
+Open-Browser -Url "http://localhost:5000"
+
+Write-Host ""
 Write-Host "??  Para parar o servidor, pressione Ctrl+C" -ForegroundColor Yellow
 Write-Host "========================================" -ForegroundColor Cyan
 

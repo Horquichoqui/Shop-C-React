@@ -1,5 +1,10 @@
-# ?? Script de Execução Automática - SetPar Store
-# Execute este script para iniciar o projeto automaticamente
+# ?? Script Inteligente de Execução - SetPar Store
+# Execute este script para iniciar o projeto e abrir navegador apenas quando o servidor estiver rodando
+
+param(
+    [switch]$AutoBrowser,
+    [switch]$NoBrowser
+)
 
 Write-Host "?? Iniciando SetPar Store..." -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
@@ -7,6 +12,8 @@ Write-Host "========================================" -ForegroundColor Cyan
 # Encontrar o diretório do projeto automaticamente
 $projectPath = $null
 $currentPath = Get-Location
+
+Write-Host "?? Procurando projeto..." -ForegroundColor Yellow
 
 # Procurar pelo arquivo .csproj em diretórios pai
 $searchPath = $currentPath
@@ -124,7 +131,7 @@ try {
 Write-Host "??? Verificando conexão com banco de dados..." -ForegroundColor Yellow
 try {
     # Tentar conectar ao SQL Server
-    $connectionString = "Server=localhost,1433;Database=AdventureWorksLT2022;User Id=sa;Password=SetParJ2;TrustServerCertificate=True;Connection Timeout=5;"
+    $connectionString = "Server=localhost,1433;Database=AdventureWorksLT2022;User Id=sa;Password=SetParJ2!;TrustServerCertificate=True;Connection Timeout=5;"
     $connection = New-Object System.Data.SqlClient.SqlConnection($connectionString)
     $connection.Open()
     $connection.Close()
@@ -135,8 +142,45 @@ try {
     Write-Host "?? Consulte o README.md para instruções de configuração do banco." -ForegroundColor Yellow
 }
 
-# Iniciar servidor
-Write-Host "?? Iniciando servidor..." -ForegroundColor Yellow
+# Função para verificar se a porta está em uso
+function Test-PortInUse {
+    param([int]$Port)
+    
+    $connections = netstat -ano | Select-String ":$Port\s+LISTENING"
+    return $connections.Count -gt 0
+}
+
+# Função para abrir o navegador
+function Open-Browser {
+    param([string]$Url)
+    
+    try {
+        Write-Host "?? Abrindo navegador..." -ForegroundColor Cyan
+        Start-Process $Url
+        Write-Host "? Navegador aberto com sucesso!" -ForegroundColor Green
+    } catch {
+        Write-Host "??  Não foi possível abrir o navegador automaticamente." -ForegroundColor Yellow
+        Write-Host "?? Acesse manualmente: $Url" -ForegroundColor Yellow
+    }
+}
+
+# Configurar abertura do navegador
+$shouldOpenBrowser = $false
+
+if ($AutoBrowser) {
+    $shouldOpenBrowser = $true
+    Write-Host "?? Navegador será aberto automaticamente quando o servidor estiver pronto..." -ForegroundColor Cyan
+} elseif (!$NoBrowser) {
+    # Se não especificou parâmetros, perguntar ao usuário
+    Write-Host "?? Deseja abrir o navegador automaticamente quando o servidor estiver pronto?" -ForegroundColor Yellow
+    $response = Read-Host "Digite 's' para sim ou 'n' para não (pressione Enter para sim)"
+    
+    if ($response -eq "" -or $response.ToLower() -eq "s" -or $response.ToLower() -eq "sim") {
+        $shouldOpenBrowser = $true
+        Write-Host "?? Navegador será aberto automaticamente quando o servidor estiver pronto..." -ForegroundColor Cyan
+    }
+}
+
 Write-Host ""
 Write-Host "?? URLs de acesso:" -ForegroundColor Cyan
 Write-Host "   Frontend: http://localhost:5000" -ForegroundColor White
@@ -144,37 +188,59 @@ Write-Host "   API: http://localhost:5000/api/Products" -ForegroundColor White
 Write-Host "   Swagger: https://localhost:5001/swagger" -ForegroundColor White
 Write-Host ""
 
-# Função para abrir o navegador após um delay
-function Start-BrowserWithDelay {
-    param([string]$Url, [int]$DelaySeconds = 3)
+# Iniciar o servidor
+Write-Host "?? Iniciando servidor..." -ForegroundColor Yellow
+
+# Função para monitorar o servidor e abrir navegador
+function Start-ServerWithBrowserMonitor {
+    param([bool]$OpenBrowser)
     
-    Start-Job -ScriptBlock {
-        param($Url, $Delay)
-        Start-Sleep -Seconds $Delay
-        try {
-            Start-Process $Url
-            Write-Host "?? Navegador aberto automaticamente!" -ForegroundColor Green
-        } catch {
-            Write-Host "?? Não foi possível abrir o navegador automaticamente." -ForegroundColor Yellow
-            Write-Host "?? Acesse manualmente: $Url" -ForegroundColor Yellow
+    # Iniciar o servidor em background
+    $serverProcess = Start-Process -FilePath "dotnet" -ArgumentList "run" -NoNewWindow -PassThru
+    
+    if ($OpenBrowser) {
+        Write-Host "? Aguardando servidor iniciar..." -ForegroundColor Yellow
+        
+        # Verificar se a porta 5000 está em uso (indicando que o servidor iniciou)
+        $maxAttempts = 30
+        $attempt = 0
+        
+        do {
+            Start-Sleep -Seconds 2
+            $attempt++
+            
+            if (Test-PortInUse -Port 5000) {
+                Write-Host "? Servidor detectado na porta 5000!" -ForegroundColor Green
+                Start-Sleep -Seconds 3  # Aguardar mais um pouco para garantir que está totalmente pronto
+                Open-Browser -Url "http://localhost:5000"
+                break
+            }
+            
+            Write-Host "? Aguardando servidor... (tentativa $attempt/$maxAttempts)" -ForegroundColor Yellow
+            
+        } while ($attempt -lt $maxAttempts -and !$serverProcess.HasExited)
+        
+        if ($attempt -eq $maxAttempts) {
+            Write-Host "??  Servidor não foi detectado após $maxAttempts tentativas." -ForegroundColor Yellow
+            Write-Host "?? Acesse manualmente: http://localhost:5000" -ForegroundColor Yellow
         }
-    } -ArgumentList $Url, $DelaySeconds
-}
-
-# Iniciar processo em background para abrir o navegador
-Write-Host "?? Abrindo navegador automaticamente em 3 segundos..." -ForegroundColor Cyan
-Start-BrowserWithDelay -Url "http://localhost:5000" -DelaySeconds 3
-
-Write-Host "??  Para parar o servidor, pressione Ctrl+C" -ForegroundColor Yellow
-Write-Host "========================================" -ForegroundColor Cyan
-
-# Executar o servidor
-try {
-    dotnet run
-} catch {
+    }
+    
+    # Aguardar o processo do servidor
     Write-Host ""
-    Write-Host "? Erro ao iniciar o servidor." -ForegroundColor Red
-    Write-Host "?? Verifique se o SQL Server está rodando e acessível." -ForegroundColor Yellow
-    Write-Host "?? Consulte o README.md para soluções de problemas comuns." -ForegroundColor Yellow
-    exit 1
+    Write-Host "??  Para parar o servidor, pressione Ctrl+C" -ForegroundColor Yellow
+    Write-Host "========================================" -ForegroundColor Cyan
+    
+    try {
+        $serverProcess.WaitForExit()
+    } catch {
+        Write-Host ""
+        Write-Host "? Erro ao executar o servidor." -ForegroundColor Red
+        Write-Host "?? Verifique se o SQL Server está rodando e acessível." -ForegroundColor Yellow
+        Write-Host "?? Consulte o README.md para soluções de problemas comuns." -ForegroundColor Yellow
+        exit 1
+    }
 }
+
+# Executar o servidor com monitoramento
+Start-ServerWithBrowserMonitor -OpenBrowser $shouldOpenBrowser

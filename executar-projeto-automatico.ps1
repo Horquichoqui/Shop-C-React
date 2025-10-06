@@ -4,41 +4,13 @@
 Write-Host "?? Iniciando SetPar Store..." -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
-# Encontrar o diretório do projeto automaticamente
-$projectPath = $null
-$currentPath = Get-Location
-
-# Procurar pelo arquivo .csproj em diretórios pai
-$searchPath = $currentPath
-$maxDepth = 5
-$depth = 0
-
-while ($depth -lt $maxDepth -and !$projectPath) {
-    if (Test-Path "$searchPath\testeSetPar.csproj") {
-        $projectPath = $searchPath
-        break
-    }
-    $searchPath = Split-Path $searchPath -Parent
-    $depth++
-}
-
-# Se não encontrou, tentar o caminho padrão
-if (!$projectPath) {
-    $defaultPath = "C:\Users\GABRIEL\Desktop\gabriel\pessoal\testes\testeSetPar\testeSetPar"
-    if (Test-Path "$defaultPath\testeSetPar.csproj") {
-        $projectPath = $defaultPath
-    }
-}
-
-if (!$projectPath) {
-    Write-Host "? Erro: Não foi possível encontrar o projeto testeSetPar.csproj" -ForegroundColor Red
-    Write-Host "?? Diretório atual: $currentPath" -ForegroundColor Yellow
-    Write-Host "?? Solução: Execute este script a partir do diretório do projeto ou ajuste o caminho no script" -ForegroundColor Yellow
+# Verificar se está no diretório correto
+if (!(Test-Path "testeSetPar.csproj")) {
+    Write-Host "? Erro: Execute este script a partir do diretório testeSetPar/" -ForegroundColor Red
+    Write-Host "?? Diretório atual: $(Get-Location)" -ForegroundColor Yellow
+    Write-Host "?? Solução: Execute: cd C:\Users\GABRIEL\Desktop\gabriel\pessoal\testes\testeSetPar\testeSetPar" -ForegroundColor Yellow
     exit 1
 }
-
-Write-Host "?? Projeto encontrado em: $projectPath" -ForegroundColor Green
-Set-Location $projectPath
 
 # Verificar pré-requisitos
 Write-Host "?? Verificando pré-requisitos..." -ForegroundColor Yellow
@@ -143,28 +115,6 @@ Write-Host "   Frontend: http://localhost:5000" -ForegroundColor White
 Write-Host "   API: http://localhost:5000/api/Products" -ForegroundColor White
 Write-Host "   Swagger: https://localhost:5001/swagger" -ForegroundColor White
 Write-Host ""
-
-# Função para abrir o navegador após um delay
-function Start-BrowserWithDelay {
-    param([string]$Url, [int]$DelaySeconds = 3)
-    
-    Start-Job -ScriptBlock {
-        param($Url, $Delay)
-        Start-Sleep -Seconds $Delay
-        try {
-            Start-Process $Url
-            Write-Host "?? Navegador aberto automaticamente!" -ForegroundColor Green
-        } catch {
-            Write-Host "?? Não foi possível abrir o navegador automaticamente." -ForegroundColor Yellow
-            Write-Host "?? Acesse manualmente: $Url" -ForegroundColor Yellow
-        }
-    } -ArgumentList $Url, $DelaySeconds
-}
-
-# Iniciar processo em background para abrir o navegador
-Write-Host "?? Abrindo navegador automaticamente em 3 segundos..." -ForegroundColor Cyan
-Start-BrowserWithDelay -Url "http://localhost:5000" -DelaySeconds 3
-
 Write-Host "??  Para parar o servidor, pressione Ctrl+C" -ForegroundColor Yellow
 Write-Host "========================================" -ForegroundColor Cyan
 
