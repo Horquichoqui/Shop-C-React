@@ -1,16 +1,16 @@
-# ?? Quick Start - Subir para GitHub
+ï»¿# ??? Quick Start - Subir para GitHub
 
-## Método Rápido (Recomendado)
+## Mï¿½todo Rï¿½pido (Recomendado)
 
 ```bash
 # 1. Navegar para o projeto
 cd C:\Users\GABRIEL\Desktop\gabriel\pessoal\testes\testeSetPar\testeSetPar
 
-# 2. Executar script automático
+# 2. Executar script automï¿½tico
 .\subir-github.ps1
 ```
 
-## Método Manual
+## Mï¿½todo Manual
 
 ```bash
 # 1. Inicializar Git
@@ -30,7 +30,7 @@ git branch -M main
 git push -u origin main
 ```
 
-## ? Checklist Pré-Upload
+## ? Checklist Prï¿½-Upload
 
 - [ ] ? Projeto funcionando localmente (`dotnet run`)
 - [ ] ? README.md completo
@@ -38,22 +38,23 @@ git push -u origin main
 - [ ] ? LICENSE adicionado
 - [ ] ? Git configurado (nome e email)
 
-## ?? URLs Finais
+## ??? URLs Finais
 
-Após upload:
-- **Repositório**: https://github.com/Horquichoqui/Shop-C-React
+Apï¿½s upload:
+- **Repositï¿½rio**: https://github.com/Horquichoqui/Shop-C-React
 - **Clone**: `git clone https://github.com/Horquichoqui/Shop-C-React.git`
 - **Issues**: https://github.com/Horquichoqui/Shop-C-React/issues
 
-## ?? Comandos de Atualização
+## ??? Comandos de Atualizaï¿½ï¿½o
 
 ```bash
-# Para futuras mudanças
+# Para futuras mudanï¿½as
 git add .
-git commit -m "Descrição da mudança"
+git commit -m "Descriï¿½ï¿½o da mudanï¿½a"
 git push origin main
 ```
 
 ---
 
-**?? Objetivo**: Projeto demonstrativo da SetPar Store no GitHub
+**??? Objetivo**: Projeto demonstrativo da SetPar Store no GitHub
+

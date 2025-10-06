@@ -1,45 +1,45 @@
-# ?? Como Subir o Projeto SetPar Store para o GitHub
+ï»¿# ??? Como Subir o Projeto SetPar Store para o GitHub
 
-## ?? Pré-requisitos
+## ??? Prï¿½-requisitos
 
 Antes de subir o projeto, certifique-se de ter:
 - ? **Git instalado** - [Download aqui](https://git-scm.com/downloads)
 - ? **Conta GitHub** criada e logada
 - ? **Projeto SetPar Store** funcionando localmente
 
-## ?? Configuração Inicial do Git
+## ??? Configuraï¿½ï¿½o Inicial do Git
 
-### 1. Inicializar o Repositório Git
+### 1. Inicializar o Repositï¿½rio Git
 ```bash
-# Navegar para o diretório do projeto
+# Navegar para o diretï¿½rio do projeto
 cd C:\Users\GABRIEL\Desktop\gabriel\pessoal\testes\testeSetPar\testeSetPar
 
-# Inicializar repositório Git
+# Inicializar repositï¿½rio Git
 git init
 
 # Verificar status
 git status
 ```
 
-### 2. Configurar Git (se necessário)
+### 2. Configurar Git (se necessï¿½rio)
 ```bash
-# Configurar nome de usuário
+# Configurar nome de usuï¿½rio
 git config --global user.name "Seu Nome"
 
 # Configurar email
 git config --global user.email "seu.email@exemplo.com"
 ```
 
-## ?? Criar .gitignore
+## ??? Criar .gitignore
 
-Crie um arquivo `.gitignore` para ignorar arquivos desnecessários:
+Crie um arquivo `.gitignore` para ignorar arquivos desnecessï¿½rios:
 
 ```bash
 # Criar arquivo .gitignore
 New-Item -Path ".gitignore" -ItemType File
 ```
 
-Adicione o seguinte conteúdo ao `.gitignore`:
+Adicione o seguinte conteï¿½do ao `.gitignore`:
 ```gitignore
 # .NET
 bin/
@@ -97,7 +97,7 @@ logs/
 *.temp
 ```
 
-## ?? Adicionar Arquivos ao Git
+## ??? Adicionar Arquivos ao Git
 
 ### 1. Adicionar todos os arquivos
 ```bash
@@ -117,14 +117,14 @@ git commit -m "Initial commit: SetPar Store - E-commerce API + React Frontend
 - React frontend integrado
 - Sistema de produtos com categorias e imagens
 - Swagger/OpenAPI documentation
-- Scripts PowerShell para execução automática"
+- Scripts PowerShell para execuï¿½ï¿½o automï¿½tica"
 ```
 
-## ?? Conectar com o Repositório GitHub
+## ??? Conectar com o Repositï¿½rio GitHub
 
 ### 1. Adicionar remote origin
 ```bash
-# Adicionar repositório remoto
+# Adicionar repositï¿½rio remoto
 git remote add origin https://github.com/Horquichoqui/Shop-C-React.git
 
 # Verificar remotes configurados
@@ -138,13 +138,13 @@ git branch -M main
 git push -u origin main
 ```
 
-## ?? Melhorar a Documentação no GitHub
+## ??? Melhorar a Documentaï¿½ï¿½o no GitHub
 
 ### 1. Atualizar README.md para GitHub
-O README.md já está completo, mas você pode adicionar badges:
+O README.md jï¿½ estï¿½ completo, mas vocï¿½ pode adicionar badges:
 
 ```markdown
-# ?? SetPar Store - E-commerce API + Frontend
+# ??? SetPar Store - E-commerce API + Frontend
 
 [![.NET](https://img.shields.io/badge/.NET-9.0-purple.svg)](https://dotnet.microsoft.com/)
 [![React](https://img.shields.io/badge/React-19.2.0-blue.svg)](https://reactjs.org/)
@@ -153,10 +153,10 @@ O README.md já está completo, mas você pode adicionar badges:
 
 Um sistema completo de e-commerce desenvolvido com **ASP.NET Core Web API** e **React**, integrado com banco de dados **SQL Server** usando **Entity Framework Core**.
 
-## ?? Demonstração Rápida
+## ??? Demonstraï¿½ï¿½o Rï¿½pida
 
 ```bash
-# Clone o repositório
+# Clone o repositï¿½rio
 git clone https://github.com/Horquichoqui/Shop-C-React.git
 cd Shop-C-React
 
@@ -166,13 +166,13 @@ dotnet run
 # Acesse: http://localhost:5000
 ```
 
-## ?? Screenshots
+## ??? Screenshots
 
-<!-- Adicione screenshots aqui quando disponíveis -->
+<!-- Adicione screenshots aqui quando disponï¿½veis -->
 
-## ?? Links Úteis
+## ??? Links ï¿½teis
 
-- **Demo**: http://localhost:5000 (após executar localmente)
+- **Demo**: http://localhost:5000 (apï¿½s executar localmente)
 - **API Docs**: https://localhost:5001/swagger
 - **Issues**: [Reportar problemas](https://github.com/Horquichoqui/Shop-C-React/issues)
 
@@ -185,7 +185,7 @@ dotnet run
 New-Item -Path "LICENSE" -ItemType File
 ```
 
-Adicione uma licença MIT:
+Adicione uma licenï¿½a MIT:
 ```text
 MIT License
 
@@ -210,55 +210,56 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## ?? Comandos de Atualização
+## ??? Comandos de Atualizaï¿½ï¿½o
 
-Para futuras atualizações do projeto:
+Para futuras atualizaï¿½ï¿½es do projeto:
 
 ```bash
 # Verificar status
 git status
 
-# Adicionar mudanças
+# Adicionar mudanï¿½as
 git add .
 
 # Fazer commit
-git commit -m "Descrição das mudanças"
+git commit -m "Descriï¿½ï¿½o das mudanï¿½as"
 
 # Fazer push
 git push origin main
 ```
 
-## ?? Checklist Final
+## ??? Checklist Final
 
 Antes de finalizar, verifique se:
 
-- [ ] ? Repositório Git inicializado
+- [ ] ? Repositï¿½rio Git inicializado
 - [ ] ? .gitignore configurado
 - [ ] ? README.md completo e atualizado
 - [ ] ? LICENSE adicionado
 - [ ] ? Todos os arquivos importantes commitados
 - [ ] ? Push realizado para GitHub
-- [ ] ? Repositório público e acessível
+- [ ] ? Repositï¿½rio pï¿½blico e acessï¿½vel
 - [ ] ? Links funcionando no README
 
-## ?? URLs Finais
+## ??? URLs Finais
 
-Após o upload, seu projeto estará disponível em:
+Apï¿½s o upload, seu projeto estarï¿½ disponï¿½vel em:
 
-- **Repositório**: https://github.com/Horquichoqui/Shop-C-React
+- **Repositï¿½rio**: https://github.com/Horquichoqui/Shop-C-React
 - **Clone**: `git clone https://github.com/Horquichoqui/Shop-C-React.git`
 - **Issues**: https://github.com/Horquichoqui/Shop-C-React/issues
 - **Releases**: https://github.com/Horquichoqui/Shop-C-React/releases
 
-## ?? Suporte
+## ??? Suporte
 
 Se encontrar problemas durante o upload:
 
-1. Verifique se está logado no Git: `git config --list`
+1. Verifique se estï¿½ logado no Git: `git config --list`
 2. Confirme as credenciais do GitHub
 3. Verifique a conectividade: `ping github.com`
-4. Consulte a [documentação do Git](https://git-scm.com/doc)
+4. Consulte a [documentaï¿½ï¿½o do Git](https://git-scm.com/doc)
 
 ---
 
-**?? Pronto!** Seu projeto SetPar Store agora está no GitHub e pronto para demonstração!
+**??? Pronto!** Seu projeto SetPar Store agora estï¿½ no GitHub e pronto para demonstraï¿½ï¿½o!
+
