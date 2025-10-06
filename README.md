@@ -1,4 +1,4 @@
-# SetPar Store - E-commerce API + Frontend
+# SetPar Store - E-commerce API + Frontend 
 
 Um sistema completo de e-commerce desenvolvido com **ASP.NET Core Web API** e **React**, integrado com banco de dados **SQL Server** usando **Entity Framework Core**.
 
@@ -245,15 +245,6 @@ cd C:\Users\GABRIEL\Desktop\gabriel\pessoal\testes\testeSetPar\testeSetPar
 .\executar.ps1 -NoBrowser
 ```
 
-**🎯 Vantagens da Automação:**
-- ✅ Verificação automática de pré-requisitos
-- ✅ Limpeza de portas em uso
-- ✅ Verificação de arquivos essenciais
-- ✅ Restauração e compilação automática
-- ✅ Teste de conexão com banco
-- ✅ Início automático do servidor
-- ✅ **Parâmetros inteligentes**: Controle total sobre abertura do navegador
-
 ### Método 2: Execução Manual
 ```bash
 # Navegar para o diretório do projeto
@@ -300,40 +291,6 @@ dotnet run
 - **Axios** - Cliente HTTP para API calls
 - **CSS3** - Estilização moderna
 
-## Funcionalidades
-
-###  Backend Completo
-- [x] API RESTful com endpoints paginados
-- [x] Paginação e filtros por categoria
-- [x] Upload e exibição de imagens
-- [x] DTOs estruturados
-- [x] Swagger/OpenAPI
-- [x] CORS configurado
-
-###  Frontend Completo  
-- [x] Interface moderna de loja
-- [x] Busca dinâmica
-- [x] Filtros por categoria
-- [x] Sistema de paginação
-- [x] Exibição automática de imagens
-- [x] Modal com detalhes do produto
-- [x] Design responsivo
-
-## Vantagens da Estrutura
-
-1. ** Organização Clara**: Separação lógica de responsabilidades
-2. ** Manutenibilidade**: Fácil localização de arquivos específicos
-3. ** Escalabilidade**: Estrutura preparada para crescimento
-4. ** Colaboração**: Equipes podem trabalhar em módulos específicos
-5. ** Documentação**: Guias organizados por categoria
-
-## Documentação Adicional
-
-- **Navegação Rápida**: `documentation/setup/NAVEGACAO-RAPIDA.md`
-- **Estrutura Reorganizada**: `documentation/setup/ESTRUTURA-REORGANIZADA.md`
-- **Guias do GitHub**: `documentation/guides/`
-- **Configurações**: `documentation/setup/`
-
 ## Links Úteis
 
 - **Demo**: http://localhost:5000 (após executar localmente)
@@ -341,5 +298,3 @@ dotnet run
 - **Repositório**: https://github.com/Horquichoqui/Shop-C-React
 
 ---
-
-** Pronto para usar!** Execute `dotnet run` e acesse http://localhost:5000 para começar a usar a SetPar Store!
